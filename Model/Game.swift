@@ -14,32 +14,27 @@ class Game {
     var attempts = 7
     var victory = false
     var secret_word = ""
+    var end = false
     
-    var end:Bool {
-        get {
-            return attempts == 1
-        }
-        set {
-            self.end = attempts == 1
-        }
-    }
-    var letterToFind: Int {
-        get {
-            return secret_word.count
-        }
-        set {
-            self.letterToFind = secret_word.count
-        }
-    }
+    var letterToFind = 0
     
     init (word: String) {
         secret_word = word
+        letterToFind = secret_word.count
     }
     
     func initializeGame () {
         end = false
         victory = false
         attempts = 7
+        letterToFind = secret_word.count
+    }
+    
+    func checkEndGame () -> Bool {
+        if attempts == 1 || letterToFind == 0 {
+            end = true
+        }
+        return end
     }
     
     func check(letter:Character) -> Bool {

@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     let hangman_images = [#imageLiteral(resourceName: "Hangman0"), #imageLiteral(resourceName: "Hangman1"), #imageLiteral(resourceName: "Hangman2"), #imageLiteral(resourceName: "Hangman3"), #imageLiteral(resourceName: "Hangman4"), #imageLiteral(resourceName: "Hangman5"), #imageLiteral(resourceName: "Hangman6")]
     
-    let game = Game(word: "Cobra")
+    let game = Game(word: "COBRA")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,34 +43,37 @@ class ViewController: UIViewController {
             initializeView()
         } else if !game.end {       //keyboard button pressed
             checkLetter(letter: letter)
-            gameStatus()
+            defineGameStatus()
+            button.isEnabled = false
         }
     }
     
-    func checkLetter (letter: String) {
-        
+    func checkLetter (letter: Character) {
         if game.check(letter: letter) {     //if good letter
-            let word_tmp = wordLabel
-            let index_tmp = secret_word.index(of: letter)
-            let index = secret_word.distance(from: secret_word.startIndex, to: index_tmp!)
+            let word_tmp = word_label.text
+            let index_tmp = game.secret_word.index(of: letter)
+            let index = game.secret_word.distance(from: game.secret_word.startIndex, to: index_tmp!)
             word_label.text = game.replaceCharacter(word_tmp!, index, letter)
         
         } else {
             image_gallows.image = hangman_images[7-game.attempts]
         }
-        button.isEnabled = false
+        
+        if game.checkEndGame() {
+            gameStatus.isEnabled = true
+        }
     }
     
-    func gameStatus () {
+    func defineGameStatus () {
         if game.end {
             if game.attempts == 1 {
                 word_label.text = "GAME OVER"
             } else if game.letterToFind == 0 {
                 word_label.text = "CONGRATS"
             }
+            disable_all_buttons()
             gameStatus.isEnabled = true
             gameStatus.setTitle("Play Again", for: .normal)
-            disable_all_buttons()
         }
     }
     
