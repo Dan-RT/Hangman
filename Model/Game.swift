@@ -32,23 +32,38 @@ class Game {
         }
     }
     
-    //let hangman_images = [#imageLiteral(resourceName: "Hangman0"), #imageLiteral(resourceName: "Hangman1"), #imageLiteral(resourceName: "Hangman2"), #imageLiteral(resourceName: "Hangman3"), #imageLiteral(resourceName: "Hangman4"), #imageLiteral(resourceName: "Hangman5"), #imageLiteral(resourceName: "Hangman6")]
-    
     init (word: String) {
         secret_word = word
     }
     
     func initializeGame () {
-        //word_label.text = "....."
-        //image_gallows.image = hangman_images[0]
         end = false
         victory = false
-        //gameStatus.setTitle("", for: .normal)
-        //gameStatus.isEnabled = false
         attempts = 7
     }
     
+    func check(letter:Character) -> Bool {
+        if secret_word.contains(letter) {
+            letterToFind = letterToFind - 1
+            return true
+        } else {
+            attempts = attempts - 1
+            return false
+        }
+    }
+    
+    func replaceCharacter(_ str: String, _ index: Int, _ letter: Character) -> String {
+        
+        var tabChars = Array(str.characters)
+        tabChars[index] = letter
+        let newString = String(tabChars)
+        
+        return newString
+    }
+
 }
+    
+
 
 
 
