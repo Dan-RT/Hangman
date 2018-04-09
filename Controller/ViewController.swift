@@ -20,8 +20,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         game.initializeGame()
         initializeView()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -31,6 +35,7 @@ class ViewController: UIViewController {
         image_gallows.image = hangman_images[0]
         gameStatus.setTitle("", for: .normal)
         gameStatus.isEnabled = false
+        JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
     }
 
     @IBAction func didPress(_ sender: Any) {
