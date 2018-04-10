@@ -251,8 +251,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9A-FE-8b2" userLabel="gameAction">
-                                <rect key="frame" x="22" y="439" width="331" height="106"/>
+                                <rect key="frame" x="48" y="463" width="287" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="61"/>
                                 <state key="normal" title="Play again">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -266,7 +267,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rQg-CE-MuI" userLabel="segmentedControl">
-                                <rect key="frame" x="93" y="737" width="93" height="29"/>
+                                <rect key="frame" x="93" y="737" width="184" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Easy" width="60"/>
@@ -274,18 +275,41 @@
                                     <segment title="Hard" width="60"/>
                                 </segments>
                                 <connections>
-                                    <action selector="didChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="GIT-e6-CGF"/>
+                                    <action selector="didTouch:" destination="BYZ-38-t0r" eventType="touchDown" id="Eof-sn-7xL"/>
                                     <action selector="indexChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2dX-5H-3dy"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDw-M7-j6D" userLabel="levelLabel">
+                                <rect key="frame" x="111" y="54" width="86" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Easy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAV-oh-nM5">
+                                <rect key="frame" x="194" y="54" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lZ-3s-BFQ">
+                                <rect key="frame" x="219" y="654" width="30" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <state key="normal" title="N"/>
+                                <connections>
+                                    <action selector="didPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wxc-OZ-zVC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.86780969968915667" green="1" blue="0.90973917956818862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="didChange" destination="rQg-CE-MuI" id="Y88-FC-baV"/>
                         <outlet property="gameStatus" destination="o9A-FE-8b2" id="sIU-9m-6Mq"/>
                         <outlet property="image_gallows" destination="eHC-K5-ATs" id="x8a-H6-qVh"/>
+                        <outlet property="level_Label" destination="YAV-oh-nM5" id="pcI-5d-KcE"/>
                         <outlet property="segmentedControl" destination="rQg-CE-MuI" id="yew-Ka-S2h"/>
                         <outlet property="word_label" destination="wds-f5-QqY" id="WLg-E3-bJZ"/>
                     </connections>

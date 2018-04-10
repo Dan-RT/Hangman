@@ -14,8 +14,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var word_label: UILabel!
     @IBOutlet weak var image_gallows: UIImageView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-    
+    @IBOutlet weak var level_Label: UILabel!
+   
+    var previousLevel = Int()
     let hangman_images = [#imageLiteral(resourceName: "Hangman0"), #imageLiteral(resourceName: "Hangman1"), #imageLiteral(resourceName: "Hangman2"), #imageLiteral(resourceName: "Hangman3"), #imageLiteral(resourceName: "Hangman4"), #imageLiteral(resourceName: "Hangman5"), #imageLiteral(resourceName: "Hangman6")]
     
     let game = Game()
@@ -23,14 +24,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        game.initializeGame()
+        game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
         initializeView()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    
-    
     
     func initializeView () {
         enable_all_buttons()
@@ -38,43 +36,41 @@ class ViewController: UIViewController {
         image_gallows.image = hangman_images[0]
         gameStatus.setTitle("", for: .normal)
         gameStatus.isEnabled = false
+        previousLevel = segmentedControl.selectedSegmentIndex
         //JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
     }
 
-    
     @IBAction func indexChanged(_ sender: Any) {
-        //alertBox()
-        
-        /*
-         switch segmentedControl.selectedSegmentIndex {
-         case 0:
-         
-         break
-         case 1:
-         
-         break
-         case 2:
-         
-         break
-         default:
-         <#code#>
-         }
-         */
+        alertBox()
     }
     
+    
+    
+    
+    
+    
+    
     func alertBox() {
-        /*
-        var refreshAlert = UIAlertController(title: "Change level", message: "All data will be lost.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let refreshAlert = UIAlertController(title: "Change level", message: "All data will be lost.", preferredStyle: UIAlertControllerStyle.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            print("Handle Ok logic here")
+            self.previousLevel = self.segmentedControl.selectedSegmentIndex
+            self.updateLevelLabel(index: self.segmentedControl.selectedSegmentIndex)
+            self.game.initializeGame(levelChosen: self.segmentedControl.selectedSegmentIndex)
+            self.initializeView()
         }))
         
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Handle Cancel Logic here")
+            self.segmentedControl.selectedSegmentIndex = self.previousLevel
+            self.updateLevelLabel(index: self.segmentedControl.selectedSegmentIndex)
         }))
         
-        present(refreshAlert, animated: true, completion: nil)*/
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func updateLevelLabel (index:Int) {
+        level_Label.text = game.getLevel(index: index)
     }
     
     @IBAction func didPress(_ sender: Any) {
@@ -83,7 +79,7 @@ class ViewController: UIViewController {
         let letter = button.currentTitle!.first!
         
         if button == gameStatus {   // "Try Again" button pressed
-            game.initializeGame()
+            game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
             initializeView()
         } else if !game.end {       //keyboard button pressed
             checkLetter(letter: letter)

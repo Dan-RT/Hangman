@@ -15,13 +15,19 @@ class Game {
     var victory = false
     var secret_word = ""
     var end = false
+    var level = ""
     
-    let dictionnary = ["COBRA", "ANGLE", "ARMOIRE", "BANC", "BUREAU", "CABINET", "CARREAU", "CHAISE", "CLASSE", "CLEF", "COIN"]
+    let dictionnaryEasy = ["BANC", "CLEF", "COIN", "SANG", "MIEL", "REIN", "DOSE"]
+    
+    let dictionnaryMedium = ["COBRA", "ANGLE", "BIBLE", "ENCRE", "ENNUI", "RODEO", "SAUCE"]
+    
+    let dictionnaryHard = ["ARMOIRE", "BUREAU", "CABINET", "CARREAU", "CHAISE", "CLASSE", "MACHIN"]
+    
     
     var letterToFind = 0
     
-    func initializeGame () {
-        secret_word = "AAABCC" //chooseRandomWord()
+    func initializeGame (levelChosen:Int) {
+        secret_word = chooseRandomWord(dict: getLevel(index: levelChosen))
         print("Secret word : \(secret_word)")
         letterToFind = secret_word.count
         end = false
@@ -30,10 +36,44 @@ class Game {
         letterToFind = secret_word.count
     }
     
-    func chooseRandomWord() -> String {
+    func chooseRandomWord(dict:String) -> String {
+        var dictionnary = [String]()
+        switch dict {
+            case "EASY":
+                dictionnary = dictionnaryEasy
+                break
+            case "MEDIUM":
+                dictionnary = dictionnaryMedium
+                break
+            case "HARD":
+                dictionnary = dictionnaryHard
+                break
+            default:
+                break
+        }
+        
+        
         let randomIndex = Int(arc4random_uniform(UInt32(dictionnary.count)))
         
         return dictionnary[randomIndex]
+        /*
+        switch dict {
+            case "EASY":
+                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryEasy.count)))
+                return dict[randomIndex]
+                break
+            case "MEDIUM":
+                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryMedium.count)))
+                return dict[randomIndex]
+                break
+            case "HARD":
+                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryHard.count)))
+                return dict[randomIndex]
+                break
+            default:
+                break
+            }
+        return "ERROR"*/
     }
     
     func replaceLetterByDots () -> String {
@@ -49,6 +89,23 @@ class Game {
             end = true
         }
         return end
+    }
+    
+    func getLevel(index:Int) -> String{
+        switch index {
+            case 0:
+                return "EASY"
+                break
+            case 1:
+                return "MEDIUM"
+                break
+            case 2:
+                return "HARD"
+                break
+            default:
+                return "ERROR"
+            break
+        }
     }
     
     func check(letter:Character) -> Bool {
