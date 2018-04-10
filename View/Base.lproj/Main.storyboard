@@ -265,13 +265,28 @@
                                 <rect key="frame" x="54" y="138" width="267" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rQg-CE-MuI" userLabel="segmentedControl">
+                                <rect key="frame" x="93" y="737" width="93" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Easy" width="60"/>
+                                    <segment title="Medium" width="60"/>
+                                    <segment title="Hard" width="60"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="GIT-e6-CGF"/>
+                                    <action selector="indexChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2dX-5H-3dy"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.86780969968915667" green="1" blue="0.90973917956818862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="didChange" destination="rQg-CE-MuI" id="Y88-FC-baV"/>
                         <outlet property="gameStatus" destination="o9A-FE-8b2" id="sIU-9m-6Mq"/>
                         <outlet property="image_gallows" destination="eHC-K5-ATs" id="x8a-H6-qVh"/>
+                        <outlet property="segmentedControl" destination="rQg-CE-MuI" id="yew-Ka-S2h"/>
                         <outlet property="word_label" destination="wds-f5-QqY" id="WLg-E3-bJZ"/>
                     </connections>
                 </viewController>

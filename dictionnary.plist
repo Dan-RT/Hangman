@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>COBRA</string>
+	<string>ANGLE</string>
+	<string>ARMOIRE</string>
+	<string>BANC</string>
+	<string>BUREAU</string>
+	<string>CABINET</string>
+	<string>CARREAU</string>
+	<string>CHAISE</string>
+	<string>CLASSE</string>
+	<string>CLEF</string>
+	<string>COIN</string>
+</array>
+</plist>

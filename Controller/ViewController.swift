@@ -13,15 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var gameStatus: UIButton!
     @IBOutlet weak var word_label: UILabel!
     @IBOutlet weak var image_gallows: UIImageView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
     
     let hangman_images = [#imageLiteral(resourceName: "Hangman0"), #imageLiteral(resourceName: "Hangman1"), #imageLiteral(resourceName: "Hangman2"), #imageLiteral(resourceName: "Hangman3"), #imageLiteral(resourceName: "Hangman4"), #imageLiteral(resourceName: "Hangman5"), #imageLiteral(resourceName: "Hangman6")]
     
-    let game = Game(word: "COBRA")
+    let game = Game()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         game.initializeGame()
         initializeView()
@@ -29,15 +29,54 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    
+    
+    
     func initializeView () {
         enable_all_buttons()
-        word_label.text = "....."
+        word_label.text = game.replaceLetterByDots()
         image_gallows.image = hangman_images[0]
         gameStatus.setTitle("", for: .normal)
         gameStatus.isEnabled = false
-        JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
+        //JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
     }
 
+    
+    @IBAction func indexChanged(_ sender: Any) {
+        //alertBox()
+        
+        /*
+         switch segmentedControl.selectedSegmentIndex {
+         case 0:
+         
+         break
+         case 1:
+         
+         break
+         case 2:
+         
+         break
+         default:
+         <#code#>
+         }
+         */
+    }
+    
+    func alertBox() {
+        /*
+        var refreshAlert = UIAlertController(title: "Change level", message: "All data will be lost.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            print("Handle Ok logic here")
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Handle Cancel Logic here")
+        }))
+        
+        present(refreshAlert, animated: true, completion: nil)*/
+    }
+    
     @IBAction func didPress(_ sender: Any) {
         let button = sender as! UIButton
         print(button.currentTitle!)
@@ -55,10 +94,12 @@ class ViewController: UIViewController {
     
     func checkLetter (letter: Character) {
         if game.check(letter: letter) {     //if good letter
-            let word_tmp = word_label.text
+            word_label.text = game.replaceLetter(letter: letter, word: word_label.text!)
+           
+            /*let word_tmp = word_label.text
             let index_tmp = game.secret_word.index(of: letter)
             let index = game.secret_word.distance(from: game.secret_word.startIndex, to: index_tmp!)
-            word_label.text = game.replaceCharacter(word_tmp!, index, letter)
+            word_label.text = game.replaceCharacter(word_tmp!, index, letter)*/
         
         } else {
             image_gallows.image = hangman_images[7-game.attempts]
