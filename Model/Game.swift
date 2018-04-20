@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Game {
     
     var attempts = 7
@@ -16,12 +15,13 @@ class Game {
     var secret_word = ""
     var end = false
     var level = ""
+    var interval = 0
     
-    let dictionnaryEasy = ["BANC", "CLEF", "COIN", "SANG", "MIEL", "REIN", "DOSE"]
+    let dictionnaryEasy = ["VOULOIR", "HOMME", "ENFANT", "POUVOIR", "PRENDRE", "PETIT", "VENIR", "METTRE", "CORPS", "VISAGE", "LUMIERE", "PIERRE", "MINISTRE", "FENETRE", "FOULE", "MUSIQUE"]
     
-    let dictionnaryMedium = ["COBRA", "ANGLE", "BIBLE", "ENCRE", "ENNUI", "RODEO", "SAUCE"]
+    let dictionnaryMedium = ["COBRA", "ANGLE", "BIBLE", "ENCRE", "ENNUI", "RODEO", "SAUCE", "BANC", "CLEF", "COIN", "SANG", "MIEL", "REIN", "DOSE", "ARMOIRE", "BUREAU", "CABINET", "CARREAU", "CHAISE", "CLASSE", "MACHIN"]
     
-    let dictionnaryHard = ["ARMOIRE", "BUREAU", "CABINET", "CARREAU", "CHAISE", "CLASSE", "MACHIN"]
+    let dictionnaryHard = ["WHISKEY", "OXYDEE", "ZYKLON", "ASPHYXIE", "JOYSTICK", "TORPILLE", "FLAMBOYANT", "PSYCHIQUE", "CARBOXYLE", "PYRAMIDE", "FELDSPATH", "TRANSPLANT", "SPRINGBOK", "PATCHWORK"]
     
     
     var letterToFind = 0
@@ -39,41 +39,26 @@ class Game {
     func chooseRandomWord(dict:String) -> String {
         var dictionnary = [String]()
         switch dict {
-            case "EASY":
-                dictionnary = dictionnaryEasy
-                break
-            case "MEDIUM":
-                dictionnary = dictionnaryMedium
-                break
-            case "HARD":
-                dictionnary = dictionnaryHard
-                break
-            default:
-                break
+        case "EASY":
+            dictionnary = dictionnaryEasy
+            interval = 20
+            break
+        case "MEDIUM":
+            dictionnary = dictionnaryMedium
+            interval = 15
+            break
+        case "HARD":
+            dictionnary = dictionnaryHard
+            interval = 10
+            break
+        default:
+            break
         }
         
         
         let randomIndex = Int(arc4random_uniform(UInt32(dictionnary.count)))
         
         return dictionnary[randomIndex]
-        /*
-        switch dict {
-            case "EASY":
-                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryEasy.count)))
-                return dict[randomIndex]
-                break
-            case "MEDIUM":
-                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryMedium.count)))
-                return dict[randomIndex]
-                break
-            case "HARD":
-                let randomIndex = Int(arc4random_uniform(UInt32(dictionnaryHard.count)))
-                return dict[randomIndex]
-                break
-            default:
-                break
-            }
-        return "ERROR"*/
     }
     
     func replaceLetterByDots () -> String {
@@ -93,18 +78,14 @@ class Game {
     
     func getLevel(index:Int) -> String{
         switch index {
-            case 0:
-                return "EASY"
-                break
-            case 1:
-                return "MEDIUM"
-                break
-            case 2:
-                return "HARD"
-                break
-            default:
-                return "ERROR"
-            break
+        case 0:
+            return "EASY"
+        case 1:
+            return "MEDIUM"
+        case 2:
+            return "HARD"
+        default:
+            return "ERROR"
         }
     }
     
@@ -138,10 +119,8 @@ class Game {
         
         return newString
     }
-
-}
     
-
+}
 
 
 

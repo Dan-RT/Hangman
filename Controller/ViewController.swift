@@ -16,8 +16,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var level_Label: UILabel!
    
+    @IBOutlet weak var gameResult: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    
+    var indexProgressBar = 0
+    var currentPoseIndex = 0
+    
     var previousLevel = Int()
     let hangman_images = [#imageLiteral(resourceName: "Hangman0"), #imageLiteral(resourceName: "Hangman1"), #imageLiteral(resourceName: "Hangman2"), #imageLiteral(resourceName: "Hangman3"), #imageLiteral(resourceName: "Hangman4"), #imageLiteral(resourceName: "Hangman5"), #imageLiteral(resourceName: "Hangman6")]
+    
+    var timer = Timer()
     
     let game = Game()
     
@@ -26,29 +34,93 @@ class ViewController: UIViewController {
         
         game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
         initializeView()
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.updateProgressBar), userInfo: nil, repeats: true)
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     func initializeView () {
         enable_all_buttons()
+        gameResult.text = ""
         word_label.text = game.replaceLetterByDots()
         image_gallows.image = hangman_images[0]
         gameStatus.setTitle("", for: .normal)
         gameStatus.isEnabled = false
+        progressBar.progress = 0.0
         previousLevel = segmentedControl.selectedSegmentIndex
         //JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
+        
+        progressBar.isHidden = false
+        indexProgressBar = 0
+        getNextPoseData()
     }
-
+    
+    
+    func getNextPoseData()
+    {
+        // do next pose stuff
+        currentPoseIndex += 1
+        print(currentPoseIndex)
+    }
+    
+    @objc func updateProgressBar() {
+        
+        if indexProgressBar == game.interval {
+            game.end = true
+            defineGameStatus()
+        }
+        
+        progressBar.progress = Float(indexProgressBar) / Float(game.interval - 1)
+        
+        indexProgressBar += 1
+    }
+    
     @IBAction func indexChanged(_ sender: Any) {
         alertBox()
     }
     
+    @IBAction func didPress(_ sender: Any) {
+        let button = sender as! UIButton
+        print(button.currentTitle!)
+        let letter = button.currentTitle!.first!
+        
+        if button == gameStatus {   // "Try Again" button pressed
+            game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
+            initializeView()
+        } else if !game.end {       //keyboard button pressed
+            checkLetter(letter: letter)
+            defineGameStatus()
+            button.isEnabled = false
+        }
+    }
     
+    func checkLetter (letter: Character) {
+        if game.check(letter: letter) {     //if good letter
+            word_label.text = game.replaceLetter(letter: letter, word: word_label.text!)
+            indexProgressBar = 0
+        } else {
+            image_gallows.image = hangman_images[7-game.attempts]
+        }
+        
+        if game.checkEndGame() {
+            gameStatus.isEnabled = true
+        }
+    }
     
-    
-    
-    
+    func defineGameStatus () {
+        if game.end {
+            progressBar.isHidden = true
+            if game.letterToFind == 0 {
+                gameResult.text = "CONGRATS"
+            } else {
+                gameResult.text = "GAME OVER"
+                word_label.text = game.secret_word
+            }
+            disable_all_buttons()
+            gameStatus.isEnabled = true
+            gameStatus.setTitle("Play Again", for: .normal)
+        }
+    }
     
     func alertBox() {
         
@@ -73,51 +145,6 @@ class ViewController: UIViewController {
         level_Label.text = game.getLevel(index: index)
     }
     
-    @IBAction func didPress(_ sender: Any) {
-        let button = sender as! UIButton
-        print(button.currentTitle!)
-        let letter = button.currentTitle!.first!
-        
-        if button == gameStatus {   // "Try Again" button pressed
-            game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
-            initializeView()
-        } else if !game.end {       //keyboard button pressed
-            checkLetter(letter: letter)
-            defineGameStatus()
-            button.isEnabled = false
-        }
-    }
-    
-    func checkLetter (letter: Character) {
-        if game.check(letter: letter) {     //if good letter
-            word_label.text = game.replaceLetter(letter: letter, word: word_label.text!)
-           
-            /*let word_tmp = word_label.text
-            let index_tmp = game.secret_word.index(of: letter)
-            let index = game.secret_word.distance(from: game.secret_word.startIndex, to: index_tmp!)
-            word_label.text = game.replaceCharacter(word_tmp!, index, letter)*/
-        
-        } else {
-            image_gallows.image = hangman_images[7-game.attempts]
-        }
-        
-        if game.checkEndGame() {
-            gameStatus.isEnabled = true
-        }
-    }
-    
-    func defineGameStatus () {
-        if game.end {
-            if game.attempts == 1 {
-                word_label.text = "GAME OVER"
-            } else if game.letterToFind == 0 {
-                word_label.text = "CONGRATS"
-            }
-            disable_all_buttons()
-            gameStatus.isEnabled = true
-            gameStatus.setTitle("Play Again", for: .normal)
-        }
-    }
     
     func disable_all_buttons () {
         for view in self.view.subviews as [UIView] {
@@ -139,6 +166,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 }
 

@@ -244,7 +244,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="_ _ _ _ _" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wds-f5-QqY" userLabel="word_label">
-                                <rect key="frame" x="24" y="346" width="335" height="100"/>
+                                <rect key="frame" x="0.0" y="346" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <nil key="textColor"/>
@@ -262,10 +262,6 @@
                                     <action selector="didPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cz8-Qw-Euf"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHC-K5-ATs" userLabel="image">
-                                <rect key="frame" x="54" y="138" width="267" height="156"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rQg-CE-MuI" userLabel="segmentedControl">
                                 <rect key="frame" x="93" y="737" width="184" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -302,14 +298,31 @@
                                     <action selector="didPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wxc-OZ-zVC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WER-JA-Lic">
+                                <rect key="frame" x="111" y="98" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lfb-ue-1kn">
+                                <rect key="frame" x="93" y="154" width="150" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHC-K5-ATs" userLabel="image">
+                                <rect key="frame" x="48" y="207" width="267" height="156"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.86780969968915667" green="1" blue="0.90973917956818862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="gameResult" destination="WER-JA-Lic" id="L2I-Go-Wvm"/>
                         <outlet property="gameStatus" destination="o9A-FE-8b2" id="sIU-9m-6Mq"/>
                         <outlet property="image_gallows" destination="eHC-K5-ATs" id="x8a-H6-qVh"/>
                         <outlet property="level_Label" destination="YAV-oh-nM5" id="pcI-5d-KcE"/>
+                        <outlet property="progressBar" destination="lfb-ue-1kn" id="0KD-5a-x5u"/>
                         <outlet property="segmentedControl" destination="rQg-CE-MuI" id="yew-Ka-S2h"/>
                         <outlet property="word_label" destination="wds-f5-QqY" id="WLg-E3-bJZ"/>
                     </connections>
