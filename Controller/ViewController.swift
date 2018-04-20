@@ -44,11 +44,9 @@ class ViewController: UIViewController {
         gameResult.text = ""
         word_label.text = game.replaceLetterByDots()
         image_gallows.image = hangman_images[0]
-        gameStatus.setTitle("", for: .normal)
-        gameStatus.isEnabled = false
+        gameStatus.isEnabled = true
         progressBar.progress = 0.0
         previousLevel = segmentedControl.selectedSegmentIndex
-        //JSonParser.retrieveJSon(urlString: "https://goo.gl/VGa6Xb")
         
         progressBar.isHidden = false
         indexProgressBar = 0
@@ -81,16 +79,19 @@ class ViewController: UIViewController {
     
     @IBAction func didPress(_ sender: Any) {
         let button = sender as! UIButton
-        print(button.currentTitle!)
-        let letter = button.currentTitle!.first!
         
         if button == gameStatus {   // "Try Again" button pressed
             game.initializeGame(levelChosen: segmentedControl.selectedSegmentIndex)
             initializeView()
         } else if !game.end {       //keyboard button pressed
+            print(button.currentTitle!)
+            let letter = button.currentTitle!.first!
             checkLetter(letter: letter)
             defineGameStatus()
             button.isEnabled = false
+            if(game.checkEndGame()) {
+                defineGameStatus()
+            }
         }
     }
     
@@ -100,10 +101,7 @@ class ViewController: UIViewController {
             indexProgressBar = 0
         } else {
             image_gallows.image = hangman_images[7-game.attempts]
-        }
-        
-        if game.checkEndGame() {
-            gameStatus.isEnabled = true
+            
         }
     }
     
@@ -117,8 +115,6 @@ class ViewController: UIViewController {
                 word_label.text = game.secret_word
             }
             disable_all_buttons()
-            gameStatus.isEnabled = true
-            gameStatus.setTitle("Play Again", for: .normal)
         }
     }
     
